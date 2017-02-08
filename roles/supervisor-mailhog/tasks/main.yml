@@ -1,0 +1,15 @@
+---
+
+- block:
+
+  - name: Creating mailhog supervisord conf file
+    template: src=mailhog.conf.j2 dest='/etc/supervisord.d/mailhog.ini' owner=root group=root mode='u=rw,g=r,o=r'
+
+  - name: Creating mailhog log directory
+    file: path=/var/log/mailhog state=directory owner=root group=root mode='u=rwx,g=rx,o=rx'
+
+  - name: Reloading supervisord
+    shell: supervisorctl reload
+
+  - name: Restarting mailhog
+    shell: supervisorctl start mailhog

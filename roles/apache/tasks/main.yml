@@ -1,0 +1,44 @@
+---
+
+- include_vars: '{{apache_yml_file}}'
+
+- block:
+
+  - name: Install Apache2 packages
+    yum: name={{ item }} update_cache=yes state=latest
+    with_items: "{{apache2_packages}}"
+
+  - name: Enable Apache service
+    service: name=httpd enabled=yes
+
+  - name: Disable apache modules
+    apache2_module: name={{ item }} state=absent
+    with_items: "{{apache2_modules_disabled}}"
+    when: apache2_modules_disabled is defined
+    ignore_errors: yes
+    notify:
+      - restart apache2
+
+  - name: Enabled apache modules
+    apache2_module: name={{ item }} state=present
+    with_items: "{{apache2_modules_enabled}}"
+    when: apache2_modules_enabled is defined
+    ignore_errors: yes
+    notify:
+      - restart apache2
+
+  - name: Creates sites directory
+    file: path=/var/www/sites state=directory owner=apache group=apache mode=0775
+    run_once: true
+
+  - name: Create symfony template conf file
+    template: src=symfony3.conf.dist dest=/etc/httpd/conf.d owner=root group=root
+
+  - name: Create laravel template conf file
+    template: src=laravel5.conf.dist dest=/etc/httpd/conf.d owner=root group=root
+
+  - name: Configure firewall for apache
+    firewalld: permanent=yes service={{item}} state=enabled
+    with_items:
+        - http
+        - https

@@ -1,0 +1,12 @@
+---
+
+- block:
+
+  - name: Install supervisord packages
+    yum: name={{ item }} update_cache=yes
+    with_items:
+      - supervisor
+      - python-pip
+
+  - name: Enable supervisord on boot
+    service: name=supervisord state=started enabled=yes

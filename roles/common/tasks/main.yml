@@ -1,0 +1,41 @@
+---
+- block:
+
+  - name: Installing Base packages
+    yum: name={{ item }} update_cache=yes state=present
+    with_items:
+      - curl
+      - tmux
+      - tree
+      - git
+      - unzip
+      - zip
+      - vim
+
+  - name: Installing Security packages
+    yum: name={{ item }} update_cache=yes state=present
+    with_items:
+      - acl
+
+  - name: Installing Monitoring packages
+    yum: name={{ item }} update_cache=yes state=present
+    with_items:
+      - sysstat
+      - htop
+      - iotop
+      - iftop
+      - atop 
+      - ncdu
+
+  - name: Installing Debugging packages
+    yum: name={{ item }} update_cache=yes state=present
+    with_items:
+      - strace
+      - tcpdump
+
+  - name: Disallow root SSH access
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PermitRootLogin"
+                line="PermitRootLogin no"
+                state=present
+    notify: Restart ssh

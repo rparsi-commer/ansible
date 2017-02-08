@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo rm /etc/php.d/xdebug.ini
+sudo ln -s /etc/php.d/xdebug-disabled.ini.dist /etc/php.d/xdebug.ini

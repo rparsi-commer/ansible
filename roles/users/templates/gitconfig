@@ -1,0 +1,14 @@
+[user]
+    email = rahi.parsi@gmail.com
+    name = Rahi Parsi
+[core]
+    autocrlf = false
+    editor = vim
+[fetch]
+    prune = true
+[pull]
+    prune = true
+    rebase = true
+[alias]
+    update = "!git remote update --prune"
+    cleanup = "!git reset --hard;git clean -fd"

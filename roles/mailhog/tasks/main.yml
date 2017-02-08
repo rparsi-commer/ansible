@@ -1,0 +1,14 @@
+---
+
+- block:
+
+  - name: Download MailHog binary
+    get_url:
+      url: "{{ mailhog_binary_url }}"
+      dest: /usr/local/bin/mailhog
+      owner: root
+      group: root
+      mode: 'ug+rwx,o+x'
+
+  - name: Enable mailhog in firewall
+    firewalld: port=8025/tcp state=enabled permanent=yes

@@ -1,0 +1,27 @@
+---
+- hosts: ansible-servers
+
+# Note: ansible uses path of playbook as current working directory
+  vars:
+    users_json_file: ../vars/users.json
+    apache_yml_file: ../vars/apache.yml
+    mysql_yml_file: ../vars/mysql.yml
+    php7_yml_file: ../vars/php7.yml
+
+# Roles NOT yet updated for CentOS:
+# nodejs
+# java8
+# elasticsearch
+
+  roles:
+     - { role: common, tags: 'common' }
+     - { role: users, tags: 'users' }
+     - { role: apache, tags: ['apache', 'apache2'] }
+     - { role: mysql, tags: ['mysql', 'mysql5.7'] }
+     - { role: php7, tags: ['php', 'php7'] }
+     - { role: nodejs, tags: ['nodejs', 'npm'] }
+     - { role: mailhog, tags: ['mailhog', 'local-smtp'] }
+     - { role: java8, tags: ['java', 'java8'] }
+     - { role: supervisor, tags: ['supervisor', 'supervisord'] }
+     - { role: elasticsearch, tags: ['elasticsearch', 'elasticsearch-5.x'] }
+     - { role: supervisor-mailhog, tags: 'mailhog.setup' }

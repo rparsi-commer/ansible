@@ -1,0 +1,10 @@
+---
+
+apache2_packages:
+    - 'httpd.x86_64'
+    - 'httpd-tools.x86_64'
+    - 'httpd-manual'
+
+apache2_modules_enabled:
+    - headers
+    - rewrite

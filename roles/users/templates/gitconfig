@@ -9,6 +9,8 @@
 [pull]
     prune = true
     rebase = true
+[color]
+    ui = auto
 [alias]
     update = "!git remote update --prune"
     cleanup = "!git reset --hard;git clean -fd"

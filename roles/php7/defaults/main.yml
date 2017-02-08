@@ -11,6 +11,7 @@ php7_packages:
     - 'php70w-bcmath'
     - 'php70w-gd'
     - 'php70w-pdo'
+    - 'php70w-mysql'
     - 'php70w-mbstring'
     - 'php70w-soap'
     - 'php70w-mcrypt'

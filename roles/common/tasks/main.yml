@@ -11,6 +11,7 @@
       - unzip
       - zip
       - vim
+      - 'bash-completion'
 
   - name: Installing Security packages
     yum: name={{ item }} update_cache=yes state=present

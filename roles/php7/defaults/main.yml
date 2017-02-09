@@ -58,3 +58,6 @@ xdebug_cli_enabled: False
 remote_port: 9010
 
 idekey: 'PHPSTORM'
+
+selinux_policy: 'targeted'
+selinux_state: 'permissive'

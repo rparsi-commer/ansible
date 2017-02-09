@@ -61,3 +61,13 @@
     with_items:
         - 'enable-xdebug'
         - 'disable-xdebug'
+
+# Security settings
+
+  - name: Set selinux policy
+    selinux: policy={{selinux_policy}} state={{selinux_state}}
+    when: selinux_policy is defined and selinux_state is defined
+
+  - name: Open firewall for xdebug
+    firewalld: port={{remote_port}}/tcp state=enabled permanent=true
+    when: xdebug_apache_enabled is defined and xdebug_apache_enabled == True

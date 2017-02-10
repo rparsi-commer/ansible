@@ -1,0 +1,10 @@
+---
+
+- block:
+
+  - name: Install memcached packages
+    yum: name={{ item }} update_cache=yes state=latest
+    with_items: "{{memcached_packages}}"
+
+  - name: Enable memcached service
+    service: name=httpd enabled=yes state=restarted

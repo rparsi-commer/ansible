@@ -1,6 +1,0 @@
----
-
-mysql_packages:
-    - 'MySQL-python.x86_64'
-    - 'mariadb.x86_64'
-    - 'mariadb-server.x86_64'

@@ -1,23 +1,27 @@
 ---
 
-- include_vars: '{{mysql_yml_file}}'
+- include_vars: '{{mariadb_yml_file}}'
 
 - block:
 
-  - name: Install MySQL packages
+  - name: Install mariaDb packages
     yum:  name={{item}} state=installed update_cache=yes
-    with_items: "{{ mysql_packages }}"
+    with_items: "{{ mariadb_packages }}"
     ignore_errors: yes
-    when: mysql_packages is defined
+    when: mariadb_packages is defined
     register: package_install_result
 
-  - name: Remove MySQL packages
-    yum: name={{ item }} state=absent purge=yes
-    with_items: "{{ mysql_packages_old }}"
-    ignore_errors: yes
-    when: mysql_packages_old is defined
+  - name: Stop mariadb if packages marked for removal
+    service: name=mariadb state=stopped
+    when: mariadb_packages_old is defined
 
-  - name: Update MySQL root password for all root accounts 
+  - name: Remove mariaDb packages
+    yum: name={{ item }} state=absent
+    with_items: "{{ mariadb_packages_old }}"
+    ignore_errors: yes
+    when: mariadb_packages_old is defined
+
+  - name: Update (MariaDB) MySQL root password for all root accounts 
     mysql_user:
       login_user: root
       check_implicit_admin: yes
@@ -28,7 +32,7 @@
     with_items:
       - ::1
       - localhost
-    when: mysql_packages is defined and package_install_result.changed
+    when: mariadb_packages is defined and package_install_result.changed
 
   - name: Ensure Anonymous user(s) are not in the database
     mysql_user:
@@ -39,7 +43,7 @@
       state: absent
     with_items:
       - localhost
-    when: mysql_packages is defined
+    when: mariadb_packages is defined and package_install_result.changed
 
   - name: Remove the test database
     mysql_db:
@@ -47,6 +51,6 @@
       login_password: "{{ mysql_root_pass }}"
       name: test
       state: absent
-    when: mysql_packages is defined
+    when: mariadb_packages is defined and package_install_result.changed
     notify:
-      - Restart MySQL
+      - Restart mariadb

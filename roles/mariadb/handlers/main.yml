@@ -1,4 +1,4 @@
 ---
 - 
-  name: Restart MySQL
+  name: Restart mariadb
   service: name=mariadb state=restarted

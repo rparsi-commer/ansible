@@ -5,8 +5,9 @@
   vars:
     users_json_file: ../vars/users.json
     apache_yml_file: ../vars/apache.yml
-    mysql_yml_file: ../vars/mysql.yml
+    mariadb_yml_file: ../vars/mariadb.yml
     php7_yml_file: ../vars/php7.yml
+    percona_yml_file: ../vars/percona.yml
 
 # Roles NOT yet updated for CentOS:
 # nodejs
@@ -17,7 +18,8 @@
      - { role: common, tags: 'common' }
      - { role: users, tags: 'users' }
      - { role: apache, tags: ['apache', 'apache2'] }
-     - { role: mysql, tags: ['mysql', 'mysql5.7'] }
+     - { role: mariadb, tags: ['mariadb', 'mariadb5.5'] }
+     - { role: percona, tags: ['percona', 'percona5.6'] }
      - { role: php7, tags: ['php', 'php7'] }
      - { role: nodejs, tags: ['nodejs', 'npm'] }
      - { role: mailhog, tags: ['mailhog', 'local-smtp'] }

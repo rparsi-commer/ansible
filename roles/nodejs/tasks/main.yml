@@ -19,4 +19,6 @@
   - name: Installing nodejs and related packages
     yum: name={{ item }} update_cache=yes state=present
     with_items:
+      - bzip2
+      - tar
       - nodejs

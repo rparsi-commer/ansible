@@ -10,7 +10,6 @@
     percona_yml_file: ../vars/percona.yml
 
 # Roles NOT yet updated for CentOS:
-# nodejs
 # java8
 # elasticsearch
 

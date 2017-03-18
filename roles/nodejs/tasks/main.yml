@@ -3,24 +3,20 @@
 - block:
 
 # following sources were used to derive the minimal ansible tasks:
-# https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
-# https://deb.nodesource.com/setup_6.x
-# http://askubuntu.com/questions/786272/why-does-installing-node-6-x-on-ubuntu-16-04-actually-install-node-4-2-6
+# https://github.com/nodesource/distributions/blob/master/rpm/setup_6.x
+# https://github.com/geerlingguy/ansible-role-nodejs/blob/master/tasks/setup-RedHat.yml
 
-  - name: Adding NodeJS GPG key
-    apt_key: url={{nodejs_gpg_key}} state=present
+  - name: Import Nodesource RPM key (CentOS 7+)
+    rpm_key: key={{nodejs_rpm_key}} state=present
 
-  - name: Ensuring ppa repository sources list directory exists
-    file: path=/etc/apt/sources.list.d state=directory owner=root group=root mode='u=rwx,g=rx,o=rx'
+  # The repo url ends up being something like https://rpm.nodesource.com/pub_6.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+  - name: Add Nodesource repositories for Node.js (CentOS 7+)
+    yum:
+      name: https://rpm.nodesource.com/pub_{{nodejs_version}}/el/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/nodesource-release-el{{ ansible_distribution_major_version }}-1.noarch.rpm
+      state: present
+      update_cache: yes
 
-  - name: Installing NodeJS repository sources list
-    template: src=nodesource.list.j2 dest=/etc/apt/sources.list.d/nodesource.list owner=root group=root mode='u=rw,g=r,o=r'
-
-  - name: Updating apt cache
-    apt: update_cache=yes
-
-  - name: Installing NodeJS
-    apt: pkg=nodejs update_cache=yes state=present
-
-  - name: Installing NodeJS dependencies
-    apt: pkg='build-essential' state=present update_cache=yes
+  - name: Installing nodejs and related packages
+    yum: name={{ item }} update_cache=yes state=present
+    with_items:
+      - nodejs

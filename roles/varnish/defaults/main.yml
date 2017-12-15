@@ -1,0 +1,11 @@
+---
+
+varnish_version: '5.1'
+
+varnish_repo: 'varnish5'
+
+varnish_packages:
+    - 'varnish'
+
+#backend_host: 'localhost'
+#backend_port: 8080

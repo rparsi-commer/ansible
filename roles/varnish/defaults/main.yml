@@ -7,5 +7,7 @@ varnish_repo: 'varnish5'
 varnish_packages:
     - 'varnish'
 
-#backend_host: 'localhost'
-#backend_port: 8080
+varnish_config_path: '/etc/varnish'
+
+varnish_port: 80
+webserver_port: 8080

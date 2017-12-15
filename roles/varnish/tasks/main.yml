@@ -29,3 +29,9 @@
   - name: Install varnish packages
     yum: name={{ item }} update_cache=yes state=latest
     with_items: "{{ varnish_packages }}"
+
+  - name: Set the VARNISH_LISTEN_PORT value
+    lineinfile: dest={{ varnish_config_path }}/varnish.params
+                regexp="^VARNISH_LISTEN_PORT"
+                line="VARNISH_LISTEN_PORT={{varnish_port}}"
+                state=present

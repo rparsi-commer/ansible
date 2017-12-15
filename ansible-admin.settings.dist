@@ -1,4 +1,6 @@
 #!/bin/bash
 
 # Required
+# set adduser variable to 1 for true, 0 for false
+adduser=0
 password='makeUpPasswordHere'

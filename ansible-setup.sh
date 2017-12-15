@@ -1,17 +1,23 @@
 #!/bin/bash
 
-. ./ansible-admin.settings
-if [ -z "${password}" ]; then
-    echo "ansible-admin.password file not found"
-    exit 0
-fi
-
 # 1. Installing ansible and misc packages
 sudo yum install epel-release
 sudo yum update
 sudo yum install ansible vim git ssh
 
-# 2. Adding ansible-admin user
+. ./ansible-admin.settings
+
+if [ "${adduser}" -eq '0' ]; then
+    echo "Done, skipping adding user"
+    exit 0
+fi
+
+if [ -z "${password}" ]; then
+    echo "ansible-admin.password file not found"
+    exit 0
+fi
+
+# 2. Adding ansible-admin user, if specified
 # Creating groups
 groupCheckResult=`getent group admin`
 if [ -z "${groupCheckResult}" ]; then

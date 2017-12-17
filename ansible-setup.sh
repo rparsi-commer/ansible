@@ -7,18 +7,7 @@ sudo yum install ansible vim git ssh
 
 . ./ansible-admin.settings
 
-if [ "${adduser}" -eq '0' ]; then
-    echo "Done, skipping adding user"
-    exit 0
-fi
-
-if [ -z "${password}" ]; then
-    echo "ansible-admin.password file not found"
-    exit 0
-fi
-
-# 2. Adding ansible-admin user, if specified
-# Creating groups
+# 2. Creating groups
 groupCheckResult=`getent group admin`
 if [ -z "${groupCheckResult}" ]; then
     echo "Creating admin group"
@@ -27,6 +16,16 @@ if [ -z "${groupCheckResult}" ]; then
     echo "${line}" > ./tmp.line
     sudo sh -c 'cat ./tmp.line > /etc/sudoers.d/admin'
     sudo rm ./tmp.line
+fi
+
+if [ "${adduser}" -eq '0' ]; then
+    echo "Done, skipping adding user"
+    exit 0
+fi
+
+if [ -z "${password}" ]; then
+    echo "ansible-admin.password file not found"
+    exit 0
 fi
 
 userCheckResult=`getent passwd ansible-admin`

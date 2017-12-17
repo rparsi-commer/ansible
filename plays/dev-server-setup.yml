@@ -19,7 +19,8 @@
      - { role: common, tags: 'common' }
      - { role: users, tags: 'users' }
      - { role: apache, tags: ['apache', 'apache2'] }
-     - { role: mariadb, tags: ['mariadb', 'mariadb5.5'] }
+#    we use percona for magento2 and middleware, so no need for mariadb       
+#    - { role: mariadb, tags: ['mariadb', 'mariadb5.5'] }
      - { role: percona, tags: ['percona', 'percona5.6'] }
      - { role: php7, tags: ['php', 'php7'] }
      - { role: nodejs, tags: ['nodejs', 'npm'] }

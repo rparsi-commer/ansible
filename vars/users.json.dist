@@ -14,10 +14,10 @@
             'secondaryGroups':'admin,dev',
             'password':'foobar',
             'sudo':true,
-            'keyFilesDir':'/path/to/keys',
+            'keyFilesDir':'/path/to/where-you-checked-out-or-downloaded-the-branch/keys',
             'privateKeyFile':'id_rsa',
             'publicKeyFile':'id_rsa.pub',
-            'usersFilesDir':'/path/to/files/users'
+            'usersFilesDir':'/path/to/where-you-checked-out-or-downloaded-the-branch/files/users'
         }
     }
 }

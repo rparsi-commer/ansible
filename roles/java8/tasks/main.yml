@@ -2,18 +2,8 @@
 
 - block:
 
-  - name: Adding java ppa (deb)
-    apt_repository: repo='ppa:webupd8team/java' state=present
+  - name: Download Oracle JDK rpm from url
+    get_url: url={{oracle_jdk_download_url}} dest={{oracle_jdk_rpm_dest}}/{{oracle_jdk_rpm_filename}} headers={{oracle_jdk_download_url_headers}} force=yes
 
-  - name: Accept Java 8 License
-    debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
-
-  - name: Updating apt cache
-    apt: update_cache=yes
-
-  - name: Install Oracle Java 8
-    apt: name={{item}} state=latest
-    with_items:
-      - oracle-java8-installer
-      - ca-certificates
-      - oracle-java8-set-default
+  - name: Installing Oracle JDK rpm
+    yum: name={{oracle_jdk_rpm_dest}}/{{oracle_jdk_rpm_filename}} state=present update_cache=yes validate_certs=no

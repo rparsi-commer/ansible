@@ -1,0 +1,22 @@
+---
+
+- block:
+
+  - name: Import jenkins repo key
+    rpm_key: key={{jenkins_repo_key_url}} state=present validate_certs={{jenkins_repo_key_validate_certs}}
+
+  - name: Install jenkins repo
+    get_url: url={{jenkins_repo_url}} dest=/etc/yum.repos.d
+    notify: yum-clean-metadata
+
+  - name: Install jenkins
+    yum: name=jenkins state=latest update_cache=yes
+
+  - name: Ensure jenkins starts on system boot
+    service: name=jenkins enabled=yes
+
+  - name: Start jenkins
+    service: name=jenkins state=started
+
+  - name: Enable jenkins ui port in firewall
+    firewalld: port={{jenkins_port}}/tcp state=enabled permanent=true immediate=true

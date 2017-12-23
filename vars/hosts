@@ -2,5 +2,4 @@
 127.0.0.1
 
 [ansible-servers]
-localhost.commer
-localhost.commer.rahi
+localhost.commer.jenkins

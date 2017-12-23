@@ -16,7 +16,7 @@
 # FYI: Use percona as database, tends to work better with CentOS
 
   roles:
-     - { role: common, tags: 'common' }
+     - { role: common, tags: ['common', 'ci'] }
      - { role: users, tags: 'users' }
      - { role: apache, tags: ['apache', 'apache2'] }
 #    we use percona for magento2 and middleware, so no need for mariadb       
@@ -24,10 +24,11 @@
      - { role: percona, tags: ['percona', 'percona5.6'] }
      - { role: php7, tags: ['php', 'php7'] }
      - { role: nodejs, tags: ['nodejs', 'npm'] }
-     - { role: mailhog, tags: ['mailhog', 'local-smtp'] }
-     - { role: java8, tags: ['java', 'java8'] }
-     - { role: supervisor, tags: ['supervisor', 'supervisord'] }
+     - { role: mailhog, tags: ['mailhog', 'local-smtp', 'ci'] }
+     - { role: java8, tags: ['java', 'java8', 'ci'] }
+     - { role: supervisor, tags: ['supervisor', 'supervisord', 'ci'] }
 #    - { role: elasticsearch, tags: ['elasticsearch', 'elasticsearch-5.x'] }
-     - { role: supervisor-mailhog, tags: 'mailhog.setup' }
+     - { role: supervisor-mailhog, tags: ['mailhog.setup', 'ci'] }
      - { role: memcached, tags: ['memcache', 'memcached'] }
      - { role: varnish, tags: ['varnish', 'varnish5'] }
+     - { role: jenkins, tags: ['jenkins', 'ci'] }

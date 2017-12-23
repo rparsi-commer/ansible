@@ -4,3 +4,5 @@
 [ansible-servers]
 localhost.commer
 localhost.commer.rahi
+localhost.commer.jenkins
+localhost.commer.jenkins-test-env

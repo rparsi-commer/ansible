@@ -11,6 +11,7 @@
       - unzip
       - zip
       - vim
+      - ntp
       - 'bash-completion'
 
   - name: Installing Security packages
@@ -40,3 +41,6 @@
                 line="PermitRootLogin no"
                 state=present
     notify: Restart ssh
+
+  - name: Configure and start ntpd
+    service: name=ntpd enabled=true state=restarted

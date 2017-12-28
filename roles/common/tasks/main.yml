@@ -42,5 +42,8 @@
                 state=present
     notify: Restart ssh
 
-  - name: Configure and start ntpd
-    service: name=ntpd enabled=true state=restarted
+  - name: Enable ntpd on boot
+    service: name=ntpd enabled=true state=stopped
+
+  - name: Reload ntpd
+    service: name=ntpd state=reloaded
